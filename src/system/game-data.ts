@@ -87,6 +87,18 @@ const ErrorMessages = {
 } as const;
 
 export class GameData {
+  public redeemAchievementPoints(cost: number, voucherType: number): boolean {
+  if (this.achievementPoints >= cost) {
+    this.achievementPoints -= cost;
+    if (!this.vouchers[voucherType]) {
+      this.vouchers[voucherType] = 0;
+    }
+    this.vouchers[voucherType] += 1;
+    this.save();
+    return true;
+  }
+  return false;
+}
   public trainerId: number;
   public secretId: number;
 
